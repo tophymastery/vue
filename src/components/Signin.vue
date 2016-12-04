@@ -9,6 +9,16 @@
 import firebase from 'firebase'
 
 export default {
+  beforeRouteEnter (to, from, next) {
+    const cancel = firebase.auth().onAuthStateChanged((user) => {
+      cancel()
+      if (user) {
+        next(to.query.redirect || '/')
+        return
+      }
+      next()
+    })
+  },
   methods: {
     signIn () {
       firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())

@@ -22,7 +22,8 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   console.log(to)
   if (to.matched.some((x) => x.meta.requireAuth)) {
-    firebase.auth().onAuthStateChanged((user) => {
+    const cancel = firebase.auth().onAuthStateChanged((user) => {
+      cancel()
       if (user) {
         next()
         return
