@@ -12,8 +12,8 @@ export default {
   methods: {
     signIn () {
       firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
-        .then((res) => {
-          this.$router.replace('/')
+        .then(() => {
+          this.$router.replace(this.$route.query.redirect || '/')
         })
     }
   }
