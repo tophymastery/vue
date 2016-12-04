@@ -13,7 +13,11 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "vue": "^2.1.0"
+    "firebase": "^3.6.2",
+    "jquery": "^3.1.1",
+    "semantic-ui-css": "^2.2.4",
+    "vue": "^2.1.0",
+    "vue-router": "^2.1.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
