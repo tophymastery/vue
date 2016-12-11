@@ -29,8 +29,6 @@
     },
     methods: {
       saveProfile () {
-        console.log('save form')
-        console.log(this.profile)
         const userId = firebase.auth().currentUser.uid
         firebase.database()
           .ref(`user/${userId}`)
