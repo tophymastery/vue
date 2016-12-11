@@ -4,6 +4,7 @@ import firebase from 'firebase'
 
 import Home from './components/Home'
 import Profile from './components/Profile'
+import ProfileEdit from './components/ProfileEdit'
 import User from './components/User'
 import Signin from './components/Signin'
 
@@ -14,6 +15,7 @@ const router = new VueRouter({
   routes: [
     { path: '/', component: Home },
     { path: '/profile', component: Profile, meta: { requireAuth: true } },
+    { path: '/profile/edit', component: ProfileEdit, meta: { requireAuth: true } },
     { path: '/user/:id', component: User },
     { path: '/signin', component: Signin }
   ]
