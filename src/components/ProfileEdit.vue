@@ -7,7 +7,7 @@
 
 <script>
   import ProfileForm from './ProfileForm'
-  import firebase from 'firebase'
+  import { User, Auth } from '../services'
 
   export default {
     components: {
@@ -20,19 +20,13 @@
       }
     }),
     created () {
-      const userId = firebase.auth().currentUser.uid
-      firebase.database()
-        .ref(`user/${userId}`)
-        .once('value', (snapshot) => {
-          this.profile = snapshot.val()
-        })
+      User.get(Auth.getCurrentUser().uid, (data) => {
+        this.profile = data
+      })
     },
     methods: {
       saveProfile () {
-        const userId = firebase.auth().currentUser.uid
-        firebase.database()
-          .ref(`user/${userId}`)
-          .set(this.profile)
+        User.set(Auth.getCurrentUser().uid, this.profile)
           .then(() => {
             this.back()
           })

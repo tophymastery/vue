@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import { User, Auth } from '../services'
 
 export default {
   data: () => ({
@@ -18,12 +18,9 @@ export default {
     }
   }),
   created () {
-    const userId = firebase.auth().currentUser.uid
-    firebase.database()
-      .ref(`user/${userId}`)
-      .once('value', (snapshot) => {
-        this.profile = snapshot.val()
-      })
+    User.get(Auth.getCurrentUser().uid, (data) => {
+      this.profile = data
+    })
   }
 }
 </script>
