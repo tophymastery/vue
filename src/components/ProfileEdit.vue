@@ -20,6 +20,14 @@
         description: ''
       }
     }),
+    created () {
+      const userId = firebase.auth().currentUser.uid
+      firebase.database()
+        .ref(`user/${userId}`)
+        .once('value', (snapshot) => {
+          this.profile = snapshot.val()
+        })
+    },
     methods: {
       saveProfile () {
         console.log('save form')

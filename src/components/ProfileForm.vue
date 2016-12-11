@@ -23,6 +23,12 @@
       this.name = this.value.name
       this.description = this.value.description
     },
+    watch: {
+      value () {
+        this.name = this.value.name
+        this.description = this.value.description
+      }
+    },
     methods: {
       save () {
         this.$emit('input', {
