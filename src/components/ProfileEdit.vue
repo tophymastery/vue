@@ -7,7 +7,7 @@
 
 <script>
   import ProfileForm from './ProfileForm'
-  import { User, Auth } from '../services'
+  import { Me } from '../services'
 
   export default {
     components: {
@@ -20,13 +20,13 @@
       }
     }),
     created () {
-      User.get(Auth.getCurrentUser().uid, (data) => {
+      Me.get((data) => {
         this.profile = data
       })
     },
     methods: {
       saveProfile () {
-        User.set(Auth.getCurrentUser().uid, this.profile)
+        Me.set(this.profile)
           .then(() => {
             this.back()
           })
