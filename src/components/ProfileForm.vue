@@ -14,12 +14,21 @@
 
 <script>
   export default {
+    props: ['value'],
     data: () => ({
       name: '',
       description: ''
     }),
+    created () {
+      this.name = this.value.name
+      this.description = this.value.description
+    },
     methods: {
       save () {
+        this.$emit('input', {
+          name: this.name,
+          description: this.description
+        })
         this.$emit('save')
       }
     }
