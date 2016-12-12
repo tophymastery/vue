@@ -1,6 +1,11 @@
 <template>
   <form class="ui form" @submit.prevent="save">
     <div class="field">
+      <label>Photo</label>
+      <img v-if :src="photo">
+      <div @click="openUpload" class="ui green button">Upload Photo</div>
+    </div>
+    <div class="field">
       <label>Name</label>
       <input v-model="name">
     </div>
@@ -10,34 +15,49 @@
     </div>
     <button class="ui submit blue button">Save</button>
     <div class="ui red button" @click="$emit('cancel')">Cancel</div>
+    <upload-modal ref="upload" @success="uploaded"></upload-modal>
   </form>
 </template>
 
 <script>
-  export default {
-    props: ['value'],
-    data: () => ({
-      name: '',
-      description: ''
-    }),
-    created () {
+import UploadModal from './UploadModal'
+
+export default {
+  components: {
+    UploadModal
+  },
+  props: ['value'],
+  data: () => ({
+    name: '',
+    description: '',
+    photo: ''
+  }),
+  created () {
+    this.name = this.value.name
+    this.description = this.value.description
+    this.photo = this.value.photo
+  },
+  watch: {
+    value () {
       this.name = this.value.name
       this.description = this.value.description
+      this.photo = this.value.photo
+    }
+  },
+  methods: {
+    save () {
+      this.$emit('input', {
+        name: this.name,
+        description: this.description
+      })
+      this.$emit('save')
     },
-    watch: {
-      value () {
-        this.name = this.value.name
-        this.description = this.value.description
-      }
+    openUpload () {
+      this.$refs.upload.open()
     },
-    methods: {
-      save () {
-        this.$emit('input', {
-          name: this.name,
-          description: this.description
-        })
-        this.$emit('save')
-      }
+    uploaded (url) {
+      this.photo = url
     }
   }
+}
 </script>
