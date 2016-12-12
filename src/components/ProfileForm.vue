@@ -2,7 +2,7 @@
   <form class="ui form" @submit.prevent="save">
     <div class="field">
       <label>Photo</label>
-      <img v-if :src="photo">
+      <img v-if :src="photo" class="ui small circular image">
       <div @click="openUpload" class="ui green button">Upload Photo</div>
     </div>
     <div class="field">
@@ -18,6 +18,13 @@
     <upload-modal ref="upload" @success="uploaded"></upload-modal>
   </form>
 </template>
+
+<style scoped>
+  img.circular.image {
+    width: 120px;
+    height: 120px;
+  }
+</style>
 
 <script>
 import UploadModal from './UploadModal'
@@ -48,7 +55,8 @@ export default {
     save () {
       this.$emit('input', {
         name: this.name,
-        description: this.description
+        description: this.description,
+        photo: this.photo
       })
       this.$emit('save')
     },
