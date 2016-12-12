@@ -9,11 +9,19 @@
       </form>
     </div>
     <div v-for="tweet in tweets" class="ui segment">
-      {{ findUser(tweet.owner).name }} <br>
+      <img class="ui tiny circular image" :src="findUserPhoto(tweet.owner).photo">
+      {{ findUserName(tweet.owner).name }} <br>
       {{ tweet.content }} {{ tweet.timestamp | fromNow }}
     </div>
   </div>
 </template>
+
+<style scoped>
+  .circular.image {
+    width: 32px;
+    height: 32px;
+  }
+</style>
 
 <script>
 import { Tweet, User } from '../services'
@@ -43,8 +51,13 @@ export default {
           this.posting = false
         })
     },
-    findUser (id) {
-      return this.users.find((it) => it.$id === id)
+    findUserName (id) {
+      const user = this.users.find((it) => it.$id === id)
+      return user ? user.name : ''
+    },
+    findUserPhoto (id) {
+      const user = this.users.find((it) => it.$id === id)
+      return user ? user.photo : ''
     }
   }
 }
