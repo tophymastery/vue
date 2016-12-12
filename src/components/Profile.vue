@@ -1,16 +1,19 @@
 <template>
   <div class="ui segment">
     <h3 class="ui header">Profile</h3>
-    <h4>Name:</h4> {{ profile.name | upper }} <br>
-    <h4>Description:</h4> {{ profile.description }} <br>
+    <profile-detail :profile="profile"></profile-detail>
     <router-link to="/profile/edit" class="ui green button">Edit</router-link>
   </div>
 </template>
 
 <script>
 import { Me } from '../services'
+import ProfileDetail from './ProfileDetail'
 
 export default {
+  components: {
+    ProfileDetail
+  },
   data: () => ({
     profile: {
       name: '',

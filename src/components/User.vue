@@ -1,15 +1,21 @@
 <template>
-  <div>User {{ id }} <br>
-    <router-link :to="`/user/${id - 1}`">Prev</router-link>
-    <router-link :to="`/user/${id + 1}`">Next</router-link>
+  <div class="ui segment">
+    User: {{ this.$route.params.id }}
+    <profile-detail v-if="data" :profile="data"></profile-detail>
   </div>
 </template>
 
 <script>
+import { User } from '../services'
+import ProfileDetail from './ProfileDetail'
+
 export default {
+  components: {
+    ProfileDetail
+  },
   data () {
     return {
-      id: 0
+      data: null
     }
   },
   created () {
@@ -20,7 +26,9 @@ export default {
   },
   methods: {
     reload () {
-      this.id = +this.$route.params.id
+      User.get(this.$route.params.id, (data) => {
+        this.data = data
+      })
     }
   }
 }
