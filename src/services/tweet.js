@@ -2,13 +2,16 @@ import firebase from 'firebase'
 import Auth from './auth'
 
 const list = (callback) => {
-  firebase.database().ref('tweet').on('value', (snapshots) => {
-    const result = []
-    snapshots.forEach((snapshot) => {
-      result.push(snapshot.val())
+  firebase.database().ref('tweet')
+    .limitToLast(3)
+    .orderByChild('timestamp')
+    .on('value', (snapshots) => {
+      const result = []
+      snapshots.forEach((snapshot) => {
+        result.push(snapshot.val())
+      })
+      callback(result.reverse())
     })
-    callback(result)
-  })
 }
 
 const post = (content) => {

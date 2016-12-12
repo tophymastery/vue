@@ -9,23 +9,28 @@
       </form>
     </div>
     <div v-for="tweet in tweets" class="ui segment">
+      {{ findUser(tweet.owner).name }} <br>
       {{ tweet.content }} {{ tweet.timestamp | fromNow }}
     </div>
   </div>
 </template>
 
 <script>
-import { Tweet } from '../services'
+import { Tweet, User } from '../services'
 
 export default {
   data: () => ({
     input: '',
     posting: false,
-    tweets: []
+    tweets: [],
+    users: []
   }),
   created () {
     Tweet.list((list) => {
       this.tweets = list
+    })
+    User.list((list) => {
+      this.users = list
     })
   },
   methods: {
@@ -37,6 +42,9 @@ export default {
           this.input = ''
           this.posting = false
         })
+    },
+    findUser (id) {
+      return this.users.find((it) => it.$id === id)
     }
   }
 }
