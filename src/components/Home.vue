@@ -9,7 +9,7 @@
       </form>
     </div>
     <div v-for="tweet in tweets" class="ui segment">
-      {{ tweet.content }} {{ tweet.timestamp }}
+      {{ tweet.content }} {{ tweet.timestamp | fromNow }}
     </div>
   </div>
 </template>

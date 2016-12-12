@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import router from './router'
 import firebase from 'firebase'
+import moment from 'moment'
 
 import '!script!jquery/dist/jquery.min.js'
 import '!script!semantic-ui-css/semantic.min.js'
@@ -21,6 +22,10 @@ Vue.filter('upper', (value) => {
     return value.toUpperCase()
   }
   return value
+})
+
+Vue.filter('fromNow', (value) => {
+  return moment(value).fromNow()
 })
 
 /* eslint-disable no-new */
