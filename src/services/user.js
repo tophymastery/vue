@@ -1,10 +1,11 @@
 import firebase from 'firebase'
 
-const get = (id, callback) => {
-  firebase.database()
+const get = (id) => {
+  return firebase.database()
     .ref(`user/${id}`)
-    .once('value', (snapshot) => {
-      callback(snapshot.val())
+    .once('value')
+    .then((snapshot) => {
+      return snapshot.val()
     })
 }
 
