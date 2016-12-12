@@ -17,6 +17,17 @@ firebase.initializeApp({
   messagingSenderId: '261588433895'
 })
 
+const ticker = new Vue({
+  data: () => ({
+    tick: 0
+  }),
+  created () {
+    setInterval(() => {
+      this.tick = Date.now()
+    }, 10000)
+  }
+})
+
 Vue.filter('upper', (value) => {
   if (typeof value === 'string') {
     return value.toUpperCase()
@@ -25,6 +36,7 @@ Vue.filter('upper', (value) => {
 })
 
 Vue.filter('fromNow', (value) => {
+  ticker.tick
   return moment(value).fromNow()
 })
 
