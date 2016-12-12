@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     reload () {
-      User.get(this.$route.params.id, (data) => {
+      User.subscribe(this.$route.params.id, (data) => {
         this.data = data
       })
     }

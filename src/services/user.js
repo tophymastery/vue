@@ -14,7 +14,16 @@ const set = (id, data) => {
     .set(data)
 }
 
+const subscribe = (id, callback) => {
+  firebase.database()
+    .ref(`user/${id}`)
+    .on('value', (snapshot) => {
+      callback(snapshot.val())
+    })
+}
+
 export default {
   get,
-  set
+  set,
+  subscribe
 }
